@@ -66,4 +66,8 @@ public class PasswordUtil {
 			return null;
 		}
 	}
+
+	public static void main(String[] args) {
+		System.out.println(generate("admin"));
+	}
 }
