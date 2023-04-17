@@ -23,4 +23,4 @@ The trading platform mainly focuses on providing financial services such as the 
 - JDK 8+
 - Maven 3.2+
 - IDEA 2018+
-- MySQL 5.6.5+
+- MySQL 8.0.3+
