@@ -21,6 +21,6 @@ The trading platform mainly focuses on providing financial services such as the 
 - Windows 7 or higher operating system (64-bit)
 - At least 8GB of RAM, recommended 12GB or more
 - JDK 8+
-- Maven 3.2+
-- IDEA 2018+
-- MySQL 5.6.5+
+- Maven 3.8+
+- IDEA 2022+
+- MySQL 8.0.3+
