@@ -56,153 +56,150 @@ CREATE TABLE `oauth_code` (
 Use p2p_account;
 
 -- Create syntax for TABLE 'account'
-CREATE TABLE `account` (
-  `ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `USERNAME` varchar(50) DEFAULT NULL COMMENT '用户名',
-  `MOBILE` varchar(50) DEFAULT NULL COMMENT '手机号',
-  `PASSWORD` varchar(50) DEFAULT NULL COMMENT '密码',
-  `SALT` varchar(50) DEFAULT NULL COMMENT '加密盐',
-  `STATUS` tinyint(1) DEFAULT NULL COMMENT '账号状态',
-  `DOMAIN` varchar(50) NOT NULL DEFAULT '',
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='账号信息';
-
+CREATE TABLE account (
+ID bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'Primary key',
+USERNAME varchar(50) DEFAULT NULL COMMENT 'Username',
+MOBILE varchar(50) DEFAULT NULL COMMENT 'Mobile number',
+PASSWORD varchar(50) DEFAULT NULL COMMENT 'Password',
+SALT varchar(50) DEFAULT NULL COMMENT 'Encryption salt',
+STATUS tinyint(1) DEFAULT NULL COMMENT 'Account status',
+DOMAIN varchar(50) NOT NULL DEFAULT '',
+PRIMARY KEY (ID)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='Account Information';
 
 -- Create syntax for TABLE 'role'
-CREATE TABLE `role` (
-  `ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `NAME` varchar(50) DEFAULT NULL COMMENT '角色名称',
-  `CODE` varchar(50) DEFAULT NULL COMMENT '角色编码',
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='角色信息';
-
+CREATE TABLE role (
+ID bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'Primary key',
+NAME varchar(50) DEFAULT NULL COMMENT 'Role name',
+CODE varchar(50) DEFAULT NULL COMMENT 'Role code',
+PRIMARY KEY (ID)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='Role Information';
 
 -- Create syntax for TABLE 'account_role'
-CREATE TABLE `account_role` (
-  `ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `ACCOUNT_ID` bigint(20) DEFAULT NULL COMMENT '账号标识',
-  `ROLE_ID` bigint(20) DEFAULT NULL COMMENT '角色标识',
-  PRIMARY KEY (`ID`),
-  KEY `Fk_Reference_15` (`ACCOUNT_ID`),
-  KEY `FK-Reference_16` (`ROLE_ID`),
-  CONSTRAINT `FK-Reference_16` FOREIGN KEY (`ROLE_ID`) REFERENCES `role` (`ID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `Fk_Reference_15` FOREIGN KEY (`ACCOUNT_ID`) REFERENCES `account` (`ID`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='账号-角色关系';
+CREATE TABLE account_role (
+ID bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'Primary key',
+ACCOUNT_ID bigint(20) DEFAULT NULL COMMENT 'Account identifier',
+ROLE_ID bigint(20) DEFAULT NULL COMMENT 'Role identifier',
+PRIMARY KEY (ID),
+KEY Fk_Reference_15 (ACCOUNT_ID),
+KEY FK_Reference_16 (ROLE_ID),
+CONSTRAINT FK_Reference_16 FOREIGN KEY (ROLE_ID) REFERENCES role (ID) ON DELETE RESTRICT ON UPDATE RESTRICT,
+CONSTRAINT Fk_Reference_15 FOREIGN KEY (ACCOUNT_ID) REFERENCES account (ID) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='Account-Role Relationship';
 
 -- Create syntax for TABLE 'menu'
-CREATE TABLE `menu` (
-  `ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `PARENT_ID` bigint(20) DEFAULT NULL COMMENT '父id',
-  `TITLE` varchar(50) NOT NULL COMMENT '菜单标题',
-  `URL` varchar(200) DEFAULT NULL COMMENT '链接url',
-  `ICON` varchar(50) DEFAULT NULL COMMENT '图标',
-  `SORT` int(11) NOT NULL COMMENT '排序',
-  `COMMENT` varchar(200) DEFAULT NULL COMMENT '说明',
-  `STATUS` int(11) NOT NULL COMMENT '状态',
-  `PRIVILEGE_CODE` varchar(50) DEFAULT NULL COMMENT '绑定权限',
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='菜单';
+CREATE TABLE menu (
+ID bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'Primary key',
+PARENT_ID bigint(20) DEFAULT NULL COMMENT 'Parent id',
+TITLE varchar(50) NOT NULL COMMENT 'Menu title',
+URL varchar(200) DEFAULT NULL COMMENT 'Link URL',
+ICON varchar(50) DEFAULT NULL COMMENT 'Icon',
+SORT int(11) NOT NULL COMMENT 'Sort order',
+COMMENT varchar(200) DEFAULT NULL COMMENT 'Description',
+STATUS int(11) NOT NULL COMMENT 'Status',
+PRIVILEGE_CODE varchar(50) DEFAULT NULL COMMENT 'Bind privilege code',
+PRIMARY KEY (ID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Menu';
 
 -- Create syntax for TABLE 'privilege'
-CREATE TABLE `privilege` (
-  `ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `NAME` varchar(50) DEFAULT NULL COMMENT '权限名称',
-  `CODE` varchar(50) DEFAULT NULL COMMENT '权限编码',
-  `PRIVILEGE_GROUP_ID` bigint(20) DEFAULT NULL COMMENT '所属权限组id',
-  PRIMARY KEY (`ID`),
-  KEY `FK_Reference_6` (`PRIVILEGE_GROUP_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='权限';
+CREATE TABLE privilege (
+ID bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'Primary key',
+NAME varchar(50) DEFAULT NULL COMMENT 'Privilege name',
+CODE varchar(50) DEFAULT NULL COMMENT 'Privilege code',
+PRIVILEGE_GROUP_ID bigint(20) DEFAULT NULL COMMENT 'Belongs to privilege group id',
+PRIMARY KEY (ID),
+KEY FK_Reference_6 (PRIVILEGE_GROUP_ID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Privilege';
 
 -- Create syntax for TABLE 'privilege_group'
-CREATE TABLE `privilege_group` (
-  `ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `PARENT_ID` bigint(20) DEFAULT NULL COMMENT '父id',
-  `NAME` varchar(50) DEFAULT NULL COMMENT '权限组名称',
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='权限组';
+CREATE TABLE privilege_group (
+ID bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'Primary key',
+PARENT_ID bigint(20) DEFAULT NULL COMMENT 'Parent id',
+NAME varchar(50) DEFAULT NULL COMMENT 'Privilege group name',
+PRIMARY KEY (ID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Privilege group';
 
 -- Create syntax for TABLE 'role_privilege'
-CREATE TABLE `role_privilege` (
-  `ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `ROLE_ID` bigint(20) DEFAULT NULL COMMENT '角色id',
-  `PRIVILEGE_ID` bigint(20) DEFAULT NULL COMMENT '权限id',
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色-权限关系';
+CREATE TABLE role_privilege (
+ID bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'Primary key',
+ROLE_ID bigint(20) DEFAULT NULL COMMENT 'Role id',
+PRIVILEGE_ID bigint(20) DEFAULT NULL COMMENT 'Privilege id',
+PRIMARY KEY (ID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Role-privilege relationship';
 
 
 Use p2p_consumer;
 
 -- Create syntax for TABLE 'bank_card'
-CREATE TABLE `bank_card` (
-  `ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `CONSUMER_ID` bigint(20) NOT NULL COMMENT '用户标识',
-  `BANK_CODE` varchar(50) DEFAULT NULL COMMENT '银行编码',
-  `BANK_NAME` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '银行名称',
-  `CARD_NUMBER` varchar(50) NOT NULL COMMENT '银行卡号',
-  `MOBILE` varchar(50) DEFAULT NULL COMMENT '银行预留手机号',
-  `STATUS` bit(1) DEFAULT NULL COMMENT '可用状态',
-  PRIMARY KEY (`ID`),
-  KEY `FK_Reference_1` (`CONSUMER_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8 COMMENT='用户绑定银行卡信息';
+CREATE TABLE bank_card (
+ID bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'Primary key',
+CONSUMER_ID bigint(20) NOT NULL COMMENT 'User ID',
+BANK_CODE varchar(50) DEFAULT NULL COMMENT 'Bank code',
+BANK_NAME varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'Bank name',
+CARD_NUMBER varchar(50) NOT NULL COMMENT 'Bank card number',
+MOBILE varchar(50) DEFAULT NULL COMMENT 'Mobile number associated with the bank account',
+STATUS bit(1) DEFAULT NULL COMMENT 'Availability status',
+PRIMARY KEY (ID),
+KEY FK_Reference_1 (CONSUMER_ID)
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8 COMMENT='User bound bank card information';
 
 -- Create syntax for TABLE 'consumer'
-CREATE TABLE `consumer` (
-  `ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `USERNAME` varchar(50) NOT NULL COMMENT '用户名',
-  `FULLNAME` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT '真实姓名',
-  `ID_NUMBER` varchar(50) DEFAULT NULL COMMENT '身份证号',
-  `USER_NO` varchar(50) DEFAULT NULL COMMENT '用户编码,生成唯一,用户在存管系统标识',
-  `MOBILE` varchar(50) DEFAULT NULL COMMENT '平台预留手机号',
-  `USER_TYPE` varchar(50) DEFAULT NULL COMMENT '用户类型,个人or企业，预留',
-  `ROLE` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '用户角色.B借款人or I投资人',
-  `AUTH_LIST` varchar(50) DEFAULT NULL COMMENT '存管授权列表',
-  `IS_BIND_CARD` tinyint(1) DEFAULT NULL COMMENT '是否已绑定银行卡',
-  `LOAN_AMOUNT` decimal(10,0) DEFAULT NULL,
-  `STATUS` tinyint(1) DEFAULT NULL COMMENT '可用状态',
-  `REQUEST_NO` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '请求流水号',
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COMMENT='c端用户信息表';
+CREATE TABLE consumer (
+ID bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'Primary key',
+USERNAME varchar(50) NOT NULL COMMENT 'Username',
+FULLNAME varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT 'Real name',
+ID_NUMBER varchar(50) DEFAULT NULL COMMENT 'ID number',
+USER_NO varchar(50) DEFAULT NULL COMMENT 'User code, generated uniquely, identifies the user in the custody system',
+MOBILE varchar(50) DEFAULT NULL COMMENT 'Mobile number associated with the platform account',
+USER_TYPE varchar(50) DEFAULT NULL COMMENT 'User type, personal or business, reserved',
+ROLE varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'User role. B=borrower, I=investor',
+AUTH_LIST varchar(50) DEFAULT NULL COMMENT 'Custody authorization list',
+IS_BIND_CARD tinyint(1) DEFAULT NULL COMMENT 'Whether the bank card has been bound',
+LOAN_AMOUNT decimal(10,0) DEFAULT NULL,
+STATUS tinyint(1) DEFAULT NULL COMMENT 'Availability status',
+REQUEST_NO varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'Request serial number',
+PRIMARY KEY (ID)
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COMMENT='C-end user information table';
 
 -- Create syntax for TABLE 'consumer_details'
-CREATE TABLE `consumer_details` (
-  `ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `CONSUMER_ID` bigint(20) NOT NULL COMMENT '用户标识',
-  `ID_CARD_PHOTO` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '身份证照片面标识',
-  `ID_CARD_EMBLEM` varchar(50) DEFAULT NULL COMMENT '身份证国徽面标识',
-  `ADDRESS` varchar(50) DEFAULT NULL COMMENT '住址',
-  `ENTERPRISE_MAIL` varchar(20) DEFAULT NULL COMMENT '企业邮箱',
-  `CONTACT_RELATION` varchar(10) DEFAULT NULL COMMENT '联系人关系',
-  `CONTACT_NAME` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '联系人姓名',
-  `CONTACT_MOBILE` varchar(20) DEFAULT NULL COMMENT '联系人电话',
-  `CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COMMENT='用户详细信息表';
+CREATE TABLE consumer_details (
+ID bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'Primary key',
+CONSUMER_ID bigint(20) NOT NULL COMMENT 'User ID',
+ID_CARD_PHOTO varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'ID card photo side identification',
+ID_CARD_EMBLEM varchar(50) DEFAULT NULL COMMENT 'ID card national emblem identification',
+ADDRESS varchar(50) DEFAULT NULL COMMENT 'Address',
+ENTERPRISE_MAIL varchar(20) DEFAULT NULL COMMENT 'Enterprise email',
+CONTACT_RELATION varchar(10) DEFAULT NULL COMMENT 'Contact person relationship',
+CONTACT_NAME varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'Contact person name',
+CONTACT_MOBILE varchar(20) DEFAULT NULL COMMENT 'Contact person mobile number',
+CREATE_DATE datetime DEFAULT NULL COMMENT 'Creation time',
+PRIMARY KEY (ID)
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COMMENT='User details information table';
 
 -- Create syntax for TABLE 'recharge_record'
-CREATE TABLE `recharge_record` (
-  `ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `CONSUMER_ID` bigint(20) NOT NULL COMMENT '用户标识',
-  `USER_NO` varchar(50) DEFAULT NULL COMMENT '用户编码,生成唯一,用户在存管系统标识',
-  `AMOUNT` decimal(10,2) DEFAULT NULL COMMENT '金额',
-  `CREATE_DATE` datetime DEFAULT NULL COMMENT '触发时间',
-  `REQUEST_NO` varchar(50) DEFAULT NULL COMMENT '请求流水号',
-  `CALLBACK_STATUS` tinyint(1) DEFAULT NULL COMMENT '回调状态',
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8 COMMENT='充值记录表';
+CREATE TABLE recharge_record (
+ID bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'Primary key',
+CONSUMER_ID bigint(20) NOT NULL COMMENT 'User ID',
+USER_NO varchar(50) DEFAULT NULL COMMENT 'User code, unique identifier in depository system',
+AMOUNT decimal(10,2) DEFAULT NULL COMMENT 'Amount',
+CREATE_DATE datetime DEFAULT NULL COMMENT 'Trigger time',
+REQUEST_NO varchar(50) DEFAULT NULL COMMENT 'Request serial number',
+CALLBACK_STATUS tinyint(1) DEFAULT NULL COMMENT 'Callback status',
+PRIMARY KEY (ID)
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8 COMMENT='Recharge record table';
 
 -- Create syntax for TABLE 'withdraw_record'
-CREATE TABLE `withdraw_record` (
-  `ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `CONSUMER_ID` bigint(20) NOT NULL COMMENT '用户标识',
-  `USER_NO` varchar(50) DEFAULT NULL COMMENT '用户编码,生成唯一,用户在存管系统标识',
-  `AMOUNT` decimal(10,2) DEFAULT NULL COMMENT '金额',
-  `COMMISSION` decimal(10,2) DEFAULT NULL COMMENT '平台佣金',
-  `CREATE_DATE` datetime DEFAULT NULL COMMENT '触发时间',
-  `REQUEST_NO` varchar(50) DEFAULT NULL COMMENT '请求流水号',
-  `CALLBACK_STATUS` tinyint(1) DEFAULT NULL COMMENT '回调状态',
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8 COMMENT='提现记录表';
-
+CREATE TABLE withdraw_record (
+ID bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'Primary key',
+CONSUMER_ID bigint(20) NOT NULL COMMENT 'User ID',
+USER_NO varchar(50) DEFAULT NULL COMMENT 'User code, unique identifier in depository system',
+AMOUNT decimal(10,2) DEFAULT NULL COMMENT 'Amount',
+COMMISSION decimal(10,2) DEFAULT NULL COMMENT 'Platform commission',
+CREATE_DATE datetime DEFAULT NULL COMMENT 'Trigger time',
+REQUEST_NO varchar(50) DEFAULT NULL COMMENT 'Request serial number',
+CALLBACK_STATUS tinyint(1) DEFAULT NULL COMMENT 'Callback status',
+PRIMARY KEY (ID)
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8 COMMENT='Withdrawal record table';
 -- Create syntax for VIEW 'balance_record_view'
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `balance_record_view`
 AS SELECT
@@ -217,301 +214,297 @@ FROM `recharge_record` where (`recharge_record`.`CALLBACK_STATUS` = 1);
 Use p2p_transaction_0;
 
 -- Create syntax for TABLE 'claim_0'
-CREATE TABLE `claim_0` (
-  `ID` bigint(20) NOT NULL COMMENT '主键',
-  `PROJECT_ID` bigint(20) DEFAULT NULL COMMENT '标的标识',
-  `PROJECT_NO` varchar(50) DEFAULT NULL COMMENT '标的编码',
-  `CONSUMER_ID` bigint(20) NOT NULL COMMENT '发标人用户标识(冗余)',
-  `SOURCE_TENDER_ID` bigint(20) NOT NULL COMMENT '投标信息标识(转让来源)',
-  `ROOT_PROJECT_ID` bigint(20) DEFAULT NULL COMMENT '原始标的标识(冗余)',
-  `ROOT_PROJECT_NO` varchar(50) DEFAULT NULL COMMENT '原始标的编码(冗余)',
-  `ASSIGNMENT_REQUEST_NO` varchar(50) DEFAULT NULL COMMENT '债权转让 请求流水号',
-  PRIMARY KEY (`ID`),
-  KEY `FK_Reference_17` (`PROJECT_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='债权转让标的附加信息';
+CREATE TABLE claim_0 (
+ID bigint(20) NOT NULL COMMENT 'Primary key',
+PROJECT_ID bigint(20) DEFAULT NULL COMMENT 'Project identifier',
+PROJECT_NO varchar(50) DEFAULT NULL COMMENT 'Project code',
+CONSUMER_ID bigint(20) NOT NULL COMMENT 'Issuer user identifier (redundant)',
+SOURCE_TENDER_ID bigint(20) NOT NULL COMMENT 'Bid information identifier (transfer source)',
+ROOT_PROJECT_ID bigint(20) DEFAULT NULL COMMENT 'Original project identifier (redundant)',
+ROOT_PROJECT_NO varchar(50) DEFAULT NULL COMMENT 'Original project code (redundant)',
+ASSIGNMENT_REQUEST_NO varchar(50) DEFAULT NULL COMMENT 'Assignment request serial number',
+PRIMARY KEY (ID),
+KEY FK_Reference_17 (PROJECT_ID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Additional information for claims transfer project';
 
 -- Create syntax for TABLE 'claim_1'
-CREATE TABLE `claim_1` (
-  `ID` bigint(20) NOT NULL COMMENT '主键',
-  `PROJECT_ID` bigint(20) DEFAULT NULL COMMENT '标的标识',
-  `PROJECT_NO` varchar(50) DEFAULT NULL COMMENT '标的编码',
-  `CONSUMER_ID` bigint(20) NOT NULL COMMENT '发标人用户标识(冗余)',
-  `SOURCE_TENDER_ID` bigint(20) NOT NULL COMMENT '投标信息标识(转让来源)',
-  `ROOT_PROJECT_ID` bigint(20) DEFAULT NULL COMMENT '原始标的标识(冗余)',
-  `ROOT_PROJECT_NO` varchar(50) DEFAULT NULL COMMENT '原始标的编码(冗余)',
-  `ASSIGNMENT_REQUEST_NO` varchar(50) DEFAULT NULL COMMENT '债权转让 请求流水号',
-  PRIMARY KEY (`ID`),
-  KEY `FK_Reference_17` (`PROJECT_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='债权转让标的附加信息';
+CREATE TABLE claim_1 (
+ID bigint(20) NOT NULL COMMENT 'Primary key',
+PROJECT_ID bigint(20) DEFAULT NULL COMMENT 'Project identifier',
+PROJECT_NO varchar(50) DEFAULT NULL COMMENT 'Project code',
+CONSUMER_ID bigint(20) NOT NULL COMMENT 'Issuer user identifier (redundant)',
+SOURCE_TENDER_ID bigint(20) NOT NULL COMMENT 'Bid information identifier (transfer source)',
+ROOT_PROJECT_ID bigint(20) DEFAULT NULL COMMENT 'Original project identifier (redundant)',
+ROOT_PROJECT_NO varchar(50) DEFAULT NULL COMMENT 'Original project code (redundant)',
+ASSIGNMENT_REQUEST_NO varchar(50) DEFAULT NULL COMMENT 'Assignment request serial number',
+PRIMARY KEY (ID),
+KEY FK_Reference_17 (PROJECT_ID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Additional information for claims transfer project';
 
 -- Create syntax for TABLE 'project_0'
-CREATE TABLE `project_0` (
-  `ID` bigint(20) NOT NULL COMMENT '主键',
-  `CONSUMER_ID` bigint(20) NOT NULL COMMENT '发标人用户标识',
-  `USER_NO` varchar(50) DEFAULT NULL COMMENT '发标人用户编码',
-  `PROJECT_NO` varchar(50) DEFAULT NULL COMMENT '标的编码',
-  `NAME` varchar(50) DEFAULT NULL COMMENT '标的名称',
-  `DESCRIPTION` longtext COMMENT '标的描述',
-  `TYPE` varchar(50) DEFAULT NULL COMMENT '标的类型',
-  `PERIOD` int(11) DEFAULT NULL COMMENT '标的期限(单位:天)',
-  `ANNUAL_RATE` decimal(10,2) DEFAULT NULL COMMENT '年化利率(投资人视图)',
-  `BORROWER_ANNUAL_RATE` decimal(10,2) DEFAULT NULL COMMENT '年化利率(借款人视图)',
-  `COMMISSION_ANNUAL_RATE` decimal(10,2) DEFAULT NULL COMMENT '年化利率(平台佣金，利差)',
-  `REPAYMENT_WAY` varchar(50) DEFAULT NULL COMMENT '还款方式',
-  `AMOUNT` decimal(10,2) DEFAULT NULL COMMENT '募集金额',
-  `PROJECT_STATUS` varchar(50) DEFAULT NULL COMMENT '标的状态',
-  `CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
-  `STATUS` tinyint(1) DEFAULT NULL COMMENT '可用状态',
-  `IS_ASSIGNMENT` tinyint(4) DEFAULT NULL COMMENT '是否是债权出让标',
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='标的信息表';
+CREATE TABLE project_0 (
+ID bigint(20) NOT NULL COMMENT 'Primary key',
+CONSUMER_ID bigint(20) NOT NULL COMMENT 'Lender user ID',
+USER_NO varchar(50) DEFAULT NULL COMMENT 'Lender user code',
+PROJECT_NO varchar(50) DEFAULT NULL COMMENT 'Project code',
+NAME varchar(50) DEFAULT NULL COMMENT 'Project name',
+DESCRIPTION longtext COMMENT 'Project description',
+TYPE varchar(50) DEFAULT NULL COMMENT 'Project type',
+PERIOD int(11) DEFAULT NULL COMMENT 'Project duration (in days)',
+ANNUAL_RATE decimal(10,2) DEFAULT NULL COMMENT 'Annual interest rate (investor view)',
+BORROWER_ANNUAL_RATE decimal(10,2) DEFAULT NULL COMMENT 'Annual interest rate (borrower view)',
+COMMISSION_ANNUAL_RATE decimal(10,2) DEFAULT NULL COMMENT 'Annual interest rate (platform commission, interest rate spread)',
+REPAYMENT_WAY varchar(50) DEFAULT NULL COMMENT 'Repayment method',
+AMOUNT decimal(10,2) DEFAULT NULL COMMENT 'Fundraising amount',
+PROJECT_STATUS varchar(50) DEFAULT NULL COMMENT 'Project status',
+CREATE_DATE datetime DEFAULT NULL COMMENT 'Creation time',
+STATUS tinyint(1) DEFAULT NULL COMMENT 'Availability status',
+IS_ASSIGNMENT tinyint(4) DEFAULT NULL COMMENT 'Whether it is a debt transfer project',
+PRIMARY KEY (ID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Project information table';
 
 -- Create syntax for TABLE 'project_1'
-CREATE TABLE `project_1` (
-  `ID` bigint(20) NOT NULL COMMENT '主键',
-  `CONSUMER_ID` bigint(20) NOT NULL COMMENT '发标人用户标识',
-  `USER_NO` varchar(50) DEFAULT NULL COMMENT '发标人用户编码',
-  `PROJECT_NO` varchar(50) DEFAULT NULL COMMENT '标的编码',
-  `NAME` varchar(50) DEFAULT NULL COMMENT '标的名称',
-  `DESCRIPTION` longtext COMMENT '标的描述',
-  `TYPE` varchar(50) DEFAULT NULL COMMENT '标的类型',
-  `PERIOD` int(11) DEFAULT NULL COMMENT '标的期限(单位:天)',
-  `ANNUAL_RATE` decimal(10,2) DEFAULT NULL COMMENT '年化利率(投资人视图)',
-  `BORROWER_ANNUAL_RATE` decimal(10,2) DEFAULT NULL COMMENT '年化利率(借款人视图)',
-  `COMMISSION_ANNUAL_RATE` decimal(10,2) DEFAULT NULL COMMENT '年化利率(平台佣金，利差)',
-  `REPAYMENT_WAY` varchar(50) DEFAULT NULL COMMENT '还款方式',
-  `AMOUNT` decimal(10,2) DEFAULT NULL COMMENT '募集金额',
-  `PROJECT_STATUS` varchar(50) DEFAULT NULL COMMENT '标的状态',
-  `CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
-  `STATUS` tinyint(4) DEFAULT NULL COMMENT '可用状态',
-  `IS_ASSIGNMENT` tinyint(4) DEFAULT NULL COMMENT '是否是债权出让标',
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='标的信息表';
+CREATE TABLE project_1 (
+ID bigint(20) NOT NULL COMMENT 'Primary key',
+CONSUMER_ID bigint(20) NOT NULL COMMENT 'Lender user ID',
+USER_NO varchar(50) DEFAULT NULL COMMENT 'Lender user code',
+PROJECT_NO varchar(50) DEFAULT NULL COMMENT 'Project code',
+NAME varchar(50) DEFAULT NULL COMMENT 'Project name',
+DESCRIPTION longtext COMMENT 'Project description',
+TYPE varchar(50) DEFAULT NULL COMMENT 'Project type',
+PERIOD int(11) DEFAULT NULL COMMENT 'Project duration (in days)',
+ANNUAL_RATE decimal(10,2) DEFAULT NULL COMMENT 'Annual interest rate (investor view)',
+BORROWER_ANNUAL_RATE decimal(10,2) DEFAULT NULL COMMENT 'Annual interest rate (borrower view)',
+COMMISSION_ANNUAL_RATE decimal(10,2) DEFAULT NULL COMMENT 'Annual interest rate (platform commission, interest rate spread)',
+REPAYMENT_WAY varchar(50) DEFAULT NULL COMMENT 'Repayment method',
+AMOUNT decimal(10,2) DEFAULT NULL COMMENT 'Fundraising amount',
+PROJECT_STATUS varchar(50) DEFAULT NULL COMMENT 'Project status',
+CREATE_DATE datetime DEFAULT NULL COMMENT 'Creation time',
+STATUS tinyint(1) DEFAULT NULL COMMENT 'Availability status',
+IS_ASSIGNMENT tinyint(4) DEFAULT NULL COMMENT 'Whether it is a debt transfer project',
+PRIMARY KEY (ID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Project information table';
 
 -- Create syntax for TABLE 'tender_0'
-CREATE TABLE `tender_0` (
-  `ID` bigint(20) NOT NULL COMMENT '主键',
-  `CONSUMER_ID` bigint(20) NOT NULL COMMENT '投标人用户标识',
-  `CONSUMER_USERNAME` varchar(50) DEFAULT NULL COMMENT '投标人用户名',
-  `USER_NO` varchar(50) DEFAULT NULL COMMENT '投标人用户编码',
-  `PROJECT_ID` bigint(20) DEFAULT NULL COMMENT '标的标识',
-  `PROJECT_NO` varchar(50) DEFAULT NULL COMMENT '标的编码',
-  `AMOUNT` decimal(10,0) DEFAULT NULL COMMENT '投标冻结金额',
-  `TENDER_STATUS` varchar(50) DEFAULT NULL COMMENT '投标状态',
-  `CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
-  `REQUEST_NO` varchar(50) DEFAULT NULL COMMENT '投标/债权转让 请求流水号',
-  `STATUS` tinyint(4) DEFAULT NULL COMMENT '可用状态',
-  `PROJECT_NAME` varchar(50) DEFAULT NULL COMMENT '标的名称',
-  `PROJECT_PERIOD` int(11) DEFAULT NULL COMMENT '标的期限(单位:天) -- 冗余字段',
-  `PROJECT_ANNUAL_RATE` decimal(10,2) DEFAULT NULL COMMENT '年化利率(投资人视图) -- 冗余字段',
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='投标信息表';
-
+CREATE TABLE tender_0 (
+ID bigint(20) NOT NULL COMMENT 'Primary key',
+CONSUMER_ID bigint(20) NOT NULL COMMENT 'Bidder user identifier',
+CONSUMER_USERNAME varchar(50) DEFAULT NULL COMMENT 'Bidder username',
+USER_NO varchar(50) DEFAULT NULL COMMENT 'Bidder user code',
+PROJECT_ID bigint(20) DEFAULT NULL COMMENT 'Project identifier',
+PROJECT_NO varchar(50) DEFAULT NULL COMMENT 'Project code',
+AMOUNT decimal(10,0) DEFAULT NULL COMMENT 'Frozen bid amount',
+TENDER_STATUS varchar(50) DEFAULT NULL COMMENT 'Bid status',
+CREATE_DATE datetime DEFAULT NULL COMMENT 'Creation time',
+REQUEST_NO varchar(50) DEFAULT NULL COMMENT 'Bid/Credit transfer request serial number',
+STATUS tinyint(4) DEFAULT NULL COMMENT 'Available status',
+PROJECT_NAME varchar(50) DEFAULT NULL COMMENT 'Project name',
+PROJECT_PERIOD int(11) DEFAULT NULL COMMENT 'Project period (unit: days) -- Redundant field',
+PROJECT_ANNUAL_RATE decimal(10,2) DEFAULT NULL COMMENT 'Annualized interest rate (investor view) -- Redundant field',
+PRIMARY KEY (ID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Bid information table';
 -- Create syntax for TABLE 'tender_1'
-CREATE TABLE `tender_1` (
-  `ID` bigint(20) NOT NULL COMMENT '主键',
-  `CONSUMER_ID` bigint(20) NOT NULL COMMENT '投标人用户标识',
-  `CONSUMER_USERNAME` varchar(50) DEFAULT NULL COMMENT '投标人用户名',
-  `USER_NO` varchar(50) DEFAULT NULL COMMENT '投标人用户编码',
-  `PROJECT_ID` bigint(20) DEFAULT NULL COMMENT '标的标识',
-  `PROJECT_NO` varchar(50) DEFAULT NULL COMMENT '标的编码',
-  `AMOUNT` decimal(10,0) DEFAULT NULL COMMENT '投标冻结金额',
-  `TENDER_STATUS` varchar(50) DEFAULT NULL COMMENT '投标状态',
-  `CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
-  `REQUEST_NO` varchar(50) DEFAULT NULL COMMENT '投标/债权转让 请求流水号',
-  `STATUS` tinyint(4) DEFAULT NULL COMMENT '可用状态',
-  `PROJECT_NAME` varchar(50) DEFAULT NULL COMMENT '标的名称',
-  `PROJECT_PERIOD` int(11) DEFAULT NULL COMMENT '标的期限(单位:天) -- 冗余字段',
-  `PROJECT_ANNUAL_RATE` decimal(10,2) DEFAULT NULL COMMENT '年化利率(投资人视图) -- 冗余字段',
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='投标信息表';
-
+CREATE TABLE tender_1 (
+ID bigint(20) NOT NULL COMMENT 'Primary key',
+CONSUMER_ID bigint(20) NOT NULL COMMENT 'Bidder user identifier',
+CONSUMER_USERNAME varchar(50) DEFAULT NULL COMMENT 'Bidder username',
+USER_NO varchar(50) DEFAULT NULL COMMENT 'Bidder user code',
+PROJECT_ID bigint(20) DEFAULT NULL COMMENT 'Project identifier',
+PROJECT_NO varchar(50) DEFAULT NULL COMMENT 'Project code',
+AMOUNT decimal(10,0) DEFAULT NULL COMMENT 'Frozen bid amount',
+TENDER_STATUS varchar(50) DEFAULT NULL COMMENT 'Bid status',
+CREATE_DATE datetime DEFAULT NULL COMMENT 'Creation time',
+REQUEST_NO varchar(50) DEFAULT NULL COMMENT 'Bid/Credit transfer request serial number',
+STATUS tinyint(4) DEFAULT NULL COMMENT 'Available status',
+PROJECT_NAME varchar(50) DEFAULT NULL COMMENT 'Project name',
+PROJECT_PERIOD int(11) DEFAULT NULL COMMENT 'Project period (unit: days) -- Redundant field',
+PROJECT_ANNUAL_RATE decimal(10,2) DEFAULT NULL COMMENT 'Annualized interest rate (investor view) -- Redundant field',
+PRIMARY KEY (ID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Bid information table';
 Use p2p_transaction_1;
 
 -- Create syntax for TABLE 'claim_0'
-CREATE TABLE `claim_0` (
-  `ID` bigint(20) NOT NULL COMMENT '主键',
-  `PROJECT_ID` bigint(20) DEFAULT NULL COMMENT '标的标识',
-  `PROJECT_NO` varchar(50) DEFAULT NULL COMMENT '标的编码',
-  `CONSUMER_ID` bigint(20) NOT NULL COMMENT '发标人用户标识(冗余)',
-  `SOURCE_TENDER_ID` bigint(20) NOT NULL COMMENT '投标信息标识(转让来源)',
-  `ROOT_PROJECT_ID` bigint(20) DEFAULT NULL COMMENT '原始标的标识(冗余)',
-  `ROOT_PROJECT_NO` varchar(50) DEFAULT NULL COMMENT '原始标的编码(冗余)',
-  `ASSIGNMENT_REQUEST_NO` varchar(50) DEFAULT NULL COMMENT '债权转让 请求流水号',
-  PRIMARY KEY (`ID`),
-  KEY `FK_Reference_17` (`PROJECT_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='债权转让标的附加信息';
+CREATE TABLE claim_0 (
+ID bigint(20) NOT NULL COMMENT 'Primary key',
+PROJECT_ID bigint(20) DEFAULT NULL COMMENT 'Project ID',
+PROJECT_NO varchar(50) DEFAULT NULL COMMENT 'Project code',
+CONSUMER_ID bigint(20) NOT NULL COMMENT 'Lender user ID (redundant)',
+SOURCE_TENDER_ID bigint(20) NOT NULL COMMENT 'Source tender ID (for transfer)',
+ROOT_PROJECT_ID bigint(20) DEFAULT NULL COMMENT 'Original project ID (redundant)',
+ROOT_PROJECT_NO varchar(50) DEFAULT NULL COMMENT 'Original project code (redundant)',
+ASSIGNMENT_REQUEST_NO varchar(50) DEFAULT NULL COMMENT 'Claim transfer request serial number',
+PRIMARY KEY (ID),
+KEY FK_Reference_17 (PROJECT_ID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Additional information of claim transfer project';
 
 -- Create syntax for TABLE 'claim_1'
-CREATE TABLE `claim_1` (
-  `ID` bigint(20) NOT NULL COMMENT '主键',
-  `PROJECT_ID` bigint(20) DEFAULT NULL COMMENT '标的标识',
-  `PROJECT_NO` varchar(50) DEFAULT NULL COMMENT '标的编码',
-  `CONSUMER_ID` bigint(20) NOT NULL COMMENT '发标人用户标识(冗余)',
-  `SOURCE_TENDER_ID` bigint(20) NOT NULL COMMENT '投标信息标识(转让来源)',
-  `ROOT_PROJECT_ID` bigint(20) DEFAULT NULL COMMENT '原始标的标识(冗余)',
-  `ROOT_PROJECT_NO` varchar(50) DEFAULT NULL COMMENT '原始标的编码(冗余)',
-  `ASSIGNMENT_REQUEST_NO` varchar(50) DEFAULT NULL COMMENT '债权转让 请求流水号',
-  PRIMARY KEY (`ID`),
-  KEY `FK_Reference_17` (`PROJECT_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='债权转让标的附加信息';
+CREATE TABLE claim_1 (
+ID bigint(20) NOT NULL COMMENT 'Primary key',
+PROJECT_ID bigint(20) DEFAULT NULL COMMENT 'Project ID',
+PROJECT_NO varchar(50) DEFAULT NULL COMMENT 'Project code',
+CONSUMER_ID bigint(20) NOT NULL COMMENT 'Lender user ID (redundant)',
+SOURCE_TENDER_ID bigint(20) NOT NULL COMMENT 'Source tender ID (for transfer)',
+ROOT_PROJECT_ID bigint(20) DEFAULT NULL COMMENT 'Original project ID (redundant)',
+ROOT_PROJECT_NO varchar(50) DEFAULT NULL COMMENT 'Original project code (redundant)',
+ASSIGNMENT_REQUEST_NO varchar(50) DEFAULT NULL COMMENT 'Claim transfer request serial number',
+PRIMARY KEY (ID),
+KEY FK_Reference_17 (PROJECT_ID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Additional information of claim transfer project';
 
 -- Create syntax for TABLE 'project_0'
-CREATE TABLE `project_0` (
-  `ID` bigint(20) NOT NULL COMMENT '主键',
-  `CONSUMER_ID` bigint(20) NOT NULL COMMENT '发标人用户标识',
-  `USER_NO` varchar(50) DEFAULT NULL COMMENT '发标人用户编码',
-  `PROJECT_NO` varchar(50) DEFAULT NULL COMMENT '标的编码',
-  `NAME` varchar(50) DEFAULT NULL COMMENT '标的名称',
-  `DESCRIPTION` longtext COMMENT '标的描述',
-  `TYPE` varchar(50) DEFAULT NULL COMMENT '标的类型',
-  `PERIOD` int(11) DEFAULT NULL COMMENT '标的期限(单位:天)',
-  `ANNUAL_RATE` decimal(10,2) DEFAULT NULL COMMENT '年化利率(投资人视图)',
-  `BORROWER_ANNUAL_RATE` decimal(10,2) DEFAULT NULL COMMENT '年化利率(借款人视图)',
-  `COMMISSION_ANNUAL_RATE` decimal(10,2) DEFAULT NULL COMMENT '年化利率(平台佣金，利差)',
-  `REPAYMENT_WAY` varchar(50) DEFAULT NULL COMMENT '还款方式',
-  `AMOUNT` decimal(10,2) DEFAULT NULL COMMENT '募集金额',
-  `PROJECT_STATUS` varchar(50) DEFAULT NULL COMMENT '标的状态',
-  `CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
-  `STATUS` tinyint(4) DEFAULT NULL COMMENT '可用状态',
-  `IS_ASSIGNMENT` tinyint(4) DEFAULT NULL COMMENT '是否是债权出让标',
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='标的信息表';
+CREATE TABLE project_0 (
+ID bigint(20) NOT NULL COMMENT 'Primary key',
+CONSUMER_ID bigint(20) NOT NULL COMMENT 'Issuer user identifier',
+USER_NO varchar(50) DEFAULT NULL COMMENT 'Issuer user code',
+PROJECT_NO varchar(50) DEFAULT NULL COMMENT 'Project code',
+NAME varchar(50) DEFAULT NULL COMMENT 'Project name',
+DESCRIPTION longtext COMMENT 'Project description',
+TYPE varchar(50) DEFAULT NULL COMMENT 'Project type',
+PERIOD int(11) DEFAULT NULL COMMENT 'Project term (in days)',
+ANNUAL_RATE decimal(10,2) DEFAULT NULL COMMENT 'Annual interest rate (viewed by investors)',
+BORROWER_ANNUAL_RATE decimal(10,2) DEFAULT NULL COMMENT 'Annual interest rate (viewed by borrowers)',
+COMMISSION_ANNUAL_RATE decimal(10,2) DEFAULT NULL COMMENT 'Annual interest rate (platform commission, spread)',
+REPAYMENT_WAY varchar(50) DEFAULT NULL COMMENT 'Repayment method',
+AMOUNT decimal(10,2) DEFAULT NULL COMMENT 'Amount raised',
+PROJECT_STATUS varchar(50) DEFAULT NULL COMMENT 'Project status',
+CREATE_DATE datetime DEFAULT NULL COMMENT 'Creation time',
+STATUS tinyint(4) DEFAULT NULL COMMENT 'Availability status',
+IS_ASSIGNMENT tinyint(4) DEFAULT NULL COMMENT 'Whether it is a debt transfer project',
+PRIMARY KEY (ID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Project information table';
 
 -- Create syntax for TABLE 'project_1'
-CREATE TABLE `project_1` (
-  `ID` bigint(20) NOT NULL COMMENT '主键',
-  `CONSUMER_ID` bigint(20) NOT NULL COMMENT '发标人用户标识',
-  `USER_NO` varchar(50) DEFAULT NULL COMMENT '发标人用户编码',
-  `PROJECT_NO` varchar(50) DEFAULT NULL COMMENT '标的编码',
-  `NAME` varchar(50) DEFAULT NULL COMMENT '标的名称',
-  `DESCRIPTION` longtext COMMENT '标的描述',
-  `TYPE` varchar(50) DEFAULT NULL COMMENT '标的类型',
-  `PERIOD` int(11) DEFAULT NULL COMMENT '标的期限(单位:天)',
-  `ANNUAL_RATE` decimal(10,2) DEFAULT NULL COMMENT '年化利率(投资人视图)',
-  `BORROWER_ANNUAL_RATE` decimal(10,2) DEFAULT NULL COMMENT '年化利率(借款人视图)',
-  `COMMISSION_ANNUAL_RATE` decimal(10,2) DEFAULT NULL COMMENT '年化利率(平台佣金，利差)',
-  `REPAYMENT_WAY` varchar(50) DEFAULT NULL COMMENT '还款方式',
-  `AMOUNT` decimal(10,2) DEFAULT NULL COMMENT '募集金额',
-  `PROJECT_STATUS` varchar(50) DEFAULT NULL COMMENT '标的状态',
-  `CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
-  `STATUS` tinyint(4) DEFAULT NULL COMMENT '可用状态',
-  `IS_ASSIGNMENT` tinyint(4) DEFAULT NULL COMMENT '是否是债权出让标',
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='标的信息表';
+CREATE TABLE project_1 (
+ID bigint(20) NOT NULL COMMENT 'Primary key',
+CONSUMER_ID bigint(20) NOT NULL COMMENT 'Issuer user identifier',
+USER_NO varchar(50) DEFAULT NULL COMMENT 'Issuer user code',
+PROJECT_NO varchar(50) DEFAULT NULL COMMENT 'Project code',
+NAME varchar(50) DEFAULT NULL COMMENT 'Project name',
+DESCRIPTION longtext COMMENT 'Project description',
+TYPE varchar(50) DEFAULT NULL COMMENT 'Project type',
+PERIOD int(11) DEFAULT NULL COMMENT 'Project term (in days)',
+ANNUAL_RATE decimal(10,2) DEFAULT NULL COMMENT 'Annual interest rate (viewed by investors)',
+BORROWER_ANNUAL_RATE decimal(10,2) DEFAULT NULL COMMENT 'Annual interest rate (viewed by borrowers)',
+COMMISSION_ANNUAL_RATE decimal(10,2) DEFAULT NULL COMMENT 'Annual interest rate (platform commission, spread)',
+REPAYMENT_WAY varchar(50) DEFAULT NULL COMMENT 'Repayment method',
+AMOUNT decimal(10,2) DEFAULT NULL COMMENT 'Amount raised',
+PROJECT_STATUS varchar(50) DEFAULT NULL COMMENT 'Project status',
+CREATE_DATE datetime DEFAULT NULL COMMENT 'Creation time',
+STATUS tinyint(4) DEFAULT NULL COMMENT 'Availability status',
+IS_ASSIGNMENT tinyint(4) DEFAULT NULL COMMENT 'Whether it is a debt transfer project',
+PRIMARY KEY (ID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Project information table';
 
 -- Create syntax for TABLE 'tender_0'
-CREATE TABLE `tender_0` (
-  `ID` bigint(20) NOT NULL COMMENT '主键',
-  `CONSUMER_ID` bigint(20) NOT NULL COMMENT '投标人用户标识',
-  `CONSUMER_USERNAME` varchar(50) DEFAULT NULL COMMENT '投标人用户名',
-  `USER_NO` varchar(50) DEFAULT NULL COMMENT '投标人用户编码',
-  `PROJECT_ID` bigint(20) DEFAULT NULL COMMENT '标的标识',
-  `PROJECT_NO` varchar(50) DEFAULT NULL COMMENT '标的编码',
-  `AMOUNT` decimal(10,0) DEFAULT NULL COMMENT '投标冻结金额',
-  `TENDER_STATUS` varchar(50) DEFAULT NULL COMMENT '投标状态',
-  `CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
-  `REQUEST_NO` varchar(50) DEFAULT NULL COMMENT '投标/债权转让 请求流水号',
-  `STATUS` tinyint(4) DEFAULT NULL COMMENT '可用状态',
-  `PROJECT_NAME` varchar(50) DEFAULT NULL COMMENT '标的名称',
-  `PROJECT_PERIOD` int(11) DEFAULT NULL COMMENT '标的期限(单位:天) -- 冗余字段',
-  `PROJECT_ANNUAL_RATE` decimal(10,2) DEFAULT NULL COMMENT '年化利率(投资人视图) -- 冗余字段',
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='投标信息表';
+CREATE TABLE tender_0 (
+ID bigint(20) NOT NULL COMMENT 'Primary key',
+CONSUMER_ID bigint(20) NOT NULL COMMENT 'Bidder user identifier',
+CONSUMER_USERNAME varchar(50) DEFAULT NULL COMMENT 'Bidder username',
+USER_NO varchar(50) DEFAULT NULL COMMENT 'Bidder user code',
+PROJECT_ID bigint(20) DEFAULT NULL COMMENT 'Target identifier',
+PROJECT_NO varchar(50) DEFAULT NULL COMMENT 'Target code',
+AMOUNT decimal(10,0) DEFAULT NULL COMMENT 'Bid frozen amount',
+TENDER_STATUS varchar(50) DEFAULT NULL COMMENT 'Bid status',
+CREATE_DATE datetime DEFAULT NULL COMMENT 'Creation time',
+REQUEST_NO varchar(50) DEFAULT NULL COMMENT 'Bid/debt assignment request serial number',
+STATUS tinyint(4) DEFAULT NULL COMMENT 'Available status',
+PROJECT_NAME varchar(50) DEFAULT NULL COMMENT 'Target name',
+PROJECT_PERIOD int(11) DEFAULT NULL COMMENT 'Target period (unit: days) -- redundant field',
+PROJECT_ANNUAL_RATE decimal(10,2) DEFAULT NULL COMMENT 'Annual interest rate (for investor view) -- redundant field',
+PRIMARY KEY (ID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Bid Information Table';
 
 -- Create syntax for TABLE 'tender_1'
-CREATE TABLE `tender_1` (
-  `ID` bigint(20) NOT NULL COMMENT '主键',
-  `CONSUMER_ID` bigint(20) NOT NULL COMMENT '投标人用户标识',
-  `CONSUMER_USERNAME` varchar(50) DEFAULT NULL COMMENT '投标人用户名',
-  `USER_NO` varchar(50) DEFAULT NULL COMMENT '投标人用户编码',
-  `PROJECT_ID` bigint(20) DEFAULT NULL COMMENT '标的标识',
-  `PROJECT_NO` varchar(50) DEFAULT NULL COMMENT '标的编码',
-  `AMOUNT` decimal(10,0) DEFAULT NULL COMMENT '投标冻结金额',
-  `TENDER_STATUS` varchar(50) DEFAULT NULL COMMENT '投标状态',
-  `CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
-  `REQUEST_NO` varchar(50) DEFAULT NULL COMMENT '投标/债权转让 请求流水号',
-  `STATUS` tinyint(4) DEFAULT NULL COMMENT '可用状态',
-  `PROJECT_NAME` varchar(50) DEFAULT NULL COMMENT '标的名称',
-  `PROJECT_PERIOD` int(11) DEFAULT NULL COMMENT '标的期限(单位:天) -- 冗余字段',
-  `PROJECT_ANNUAL_RATE` decimal(10,2) DEFAULT NULL COMMENT '年化利率(投资人视图) -- 冗余字段',
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='投标信息表';
-
+CREATE TABLE tender_1 (
+ID bigint(20) NOT NULL COMMENT 'Primary key',
+CONSUMER_ID bigint(20) NOT NULL COMMENT 'Bidder user identifier',
+CONSUMER_USERNAME varchar(50) DEFAULT NULL COMMENT 'Bidder username',
+USER_NO varchar(50) DEFAULT NULL COMMENT 'Bidder user code',
+PROJECT_ID bigint(20) DEFAULT NULL COMMENT 'Target identifier',
+PROJECT_NO varchar(50) DEFAULT NULL COMMENT 'Target code',
+AMOUNT decimal(10,0) DEFAULT NULL COMMENT 'Bid frozen amount',
+TENDER_STATUS varchar(50) DEFAULT NULL COMMENT 'Bid status',
+CREATE_DATE datetime DEFAULT NULL COMMENT 'Creation time',
+REQUEST_NO varchar(50) DEFAULT NULL COMMENT 'Bid/debt assignment request serial number',
+STATUS tinyint(4) DEFAULT NULL COMMENT 'Available status',
+PROJECT_NAME varchar(50) DEFAULT NULL COMMENT 'Target name',
+PROJECT_PERIOD int(11) DEFAULT NULL COMMENT 'Target period (unit: days) -- redundant field',
+PROJECT_ANNUAL_RATE decimal(10,2) DEFAULT NULL COMMENT 'Annual interest rate (for investor view) -- redundant field',
+PRIMARY KEY (ID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Bid Information Table';
 
 Use p2p_repayment;
 
 -- Create syntax for TABLE 'receivable_detail'
-CREATE TABLE `receivable_detail` (
-  `ID` bigint(20) NOT NULL COMMENT '主键',
-  `RECEIVABLE_ID` bigint(20) DEFAULT NULL COMMENT '应收项标识',
-  `AMOUNT` decimal(10,2) DEFAULT NULL COMMENT '实收本息',
-  `RECEIVABLE_DATE` datetime DEFAULT NULL COMMENT '实收时间',
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='投资人实收明细';
+CREATE TABLE receivable_detail (
+ID bigint(20) NOT NULL COMMENT 'primary key',
+RECEIVABLE_ID bigint(20) DEFAULT NULL COMMENT 'receivable item identification',
+AMOUNT decimal(10,2) DEFAULT NULL COMMENT 'actual received principal and interest',
+RECEIVABLE_DATE datetime DEFAULT NULL COMMENT 'actual received time',
+PRIMARY KEY (ID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='investor received detail';
 
 -- Create syntax for TABLE 'receivable_plan'
-CREATE TABLE `receivable_plan` (
-  `ID` bigint(20) NOT NULL COMMENT '主键',
-  `CONSUMER_ID` bigint(20) DEFAULT NULL COMMENT '投标人用户标识',
-  `USER_NO` varchar(50) DEFAULT NULL COMMENT '投标人用户编码',
-  `TENDER_ID` bigint(20) NOT NULL COMMENT '投标信息标识',
-  `REPAYMENT_ID` bigint(20) DEFAULT NULL COMMENT '还款计划项标识',
-  `NUMBER_OF_PERIODS` int(11) DEFAULT NULL COMMENT '期数',
-  `INTEREST` decimal(10,2) DEFAULT NULL COMMENT '应收利息',
-  `PRINCIPAL` decimal(10,2) DEFAULT NULL COMMENT '应收本金',
-  `AMOUNT` decimal(10,2) DEFAULT NULL COMMENT '应收本息',
-  `SHOULD_RECEIVABLE_DATE` datetime DEFAULT NULL COMMENT '应收时间',
-  `RECEIVABLE_STATUS` tinyint(4) DEFAULT NULL COMMENT '状态：0,.未收 1.已收  2.部分收到',
-  `CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
-  `COMMISSION` decimal(10,2) DEFAULT NULL COMMENT '年化利率(平台佣金，利差)',
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='投资人应收明细';
+CREATE TABLE receivable_plan (
+ID bigint(20) NOT NULL COMMENT 'primary key',
+CONSUMER_ID bigint(20) DEFAULT NULL COMMENT 'investor user identification',
+USER_NO varchar(50) DEFAULT NULL COMMENT 'investor user code',
+TENDER_ID bigint(20) NOT NULL COMMENT 'bid information identification',
+REPAYMENT_ID bigint(20) DEFAULT NULL COMMENT 'repayment plan item identification',
+NUMBER_OF_PERIODS int(11) DEFAULT NULL COMMENT 'number of periods',
+INTEREST decimal(10,2) DEFAULT NULL COMMENT 'receivable interest',
+PRINCIPAL decimal(10,2) DEFAULT NULL COMMENT 'receivable principal',
+AMOUNT decimal(10,2) DEFAULT NULL COMMENT 'receivable principal and interest',
+SHOULD_RECEIVABLE_DATE datetime DEFAULT NULL COMMENT 'receivable time',
+RECEIVABLE_STATUS tinyint(4) DEFAULT NULL COMMENT 'status: 0. not received, 1. received, 2. partially received',
+CREATE_DATE datetime DEFAULT NULL COMMENT 'create time',
+COMMISSION decimal(10,2) DEFAULT NULL COMMENT 'annualized rate (platform commission, interest difference)',
+PRIMARY KEY (ID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='investor receivable detail';
 
 -- Create syntax for TABLE 'repayment_detail'
-CREATE TABLE `repayment_detail` (
-  `ID` bigint(20) NOT NULL COMMENT '主键',
-  `REPAYMENT_PLAN_ID` bigint(20) DEFAULT NULL COMMENT '还款计划项标识',
-  `AMOUNT` decimal(10,2) DEFAULT NULL COMMENT '实还本息',
-  `REPAYMENT_DATE` datetime DEFAULT NULL COMMENT '实际还款时间',
-  `REQUEST_NO` varchar(50) DEFAULT NULL COMMENT '冻结用户资金请求流水号(用于解冻合并整体还款)，\r\n            有漏洞，存管不支持单次“确定还款”，合并多个还款预处理的操作，折中做法。',
-  `STATUS` tinyint(4) DEFAULT NULL COMMENT '可用状态',
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='借款人还款明细，针对一个还款计划可多次进行还款';
+CREATE TABLE repayment_detail (
+ID bigint(20) NOT NULL COMMENT 'primary key',
+REPAYMENT_PLAN_ID bigint(20) DEFAULT NULL COMMENT 'repayment plan item identification',
+AMOUNT decimal(10,2) DEFAULT NULL COMMENT 'actual repaid principal and interest',
+REPAYMENT_DATE datetime DEFAULT NULL COMMENT 'actual repayment time',
+REQUEST_NO varchar(50) DEFAULT NULL COMMENT 'frozen user fund request serial number (used for thawing and merging overall repayment),\r\n with loopholes, custody does not support single "determined repayment", compromise measures for merging multiple repayment pre-processing operations.',
+STATUS tinyint(4) DEFAULT NULL COMMENT 'available status',
+PRIMARY KEY (ID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='borrower repayment details, multiple repayments can be made for a repayment plan';
 
 -- Create syntax for TABLE 'repayment_plan'
-CREATE TABLE `repayment_plan` (
-  `ID` bigint(20) NOT NULL COMMENT '主键',
-  `CONSUMER_ID` bigint(20) DEFAULT NULL COMMENT '发标人用户标识',
-  `USER_NO` varchar(50) DEFAULT NULL COMMENT '发标人用户编码',
-  `PROJECT_ID` bigint(20) DEFAULT NULL COMMENT '标的标识',
-  `PROJECT_NO` varchar(50) DEFAULT NULL COMMENT '标的编码',
-  `NUMBER_OF_PERIODS` int(11) DEFAULT NULL COMMENT '期数',
-  `INTEREST` decimal(10,2) DEFAULT NULL COMMENT '还款利息',
-  `PRINCIPAL` decimal(10,2) DEFAULT NULL COMMENT '还款本金',
-  `AMOUNT` decimal(10,2) DEFAULT NULL COMMENT '本息',
-  `SHOULD_REPAYMENT_DATE` datetime DEFAULT NULL COMMENT '应还时间',
-  `REPAYMENT_STATUS` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '应还状态0.待还,1.已还， 2.部分还款',
-  `CREATE_DATE` datetime DEFAULT NULL COMMENT '计划创建时间',
-  `COMMISSION` decimal(10,2) DEFAULT NULL COMMENT '年化利率(平台佣金，利差)',
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='借款人还款计划';
-
+CREATE TABLE repayment_plan (
+ID bigint(20) NOT NULL COMMENT 'primary key',
+CONSUMER_ID bigint(20) DEFAULT NULL COMMENT 'issuer user identifier',
+USER_NO varchar(50) DEFAULT NULL COMMENT 'issuer user code',
+PROJECT_ID bigint(20) DEFAULT NULL COMMENT 'project identifier',
+PROJECT_NO varchar(50) DEFAULT NULL COMMENT 'project code',
+NUMBER_OF_PERIODS int(11) DEFAULT NULL COMMENT 'number of periods',
+INTEREST decimal(10,2) DEFAULT NULL COMMENT 'repayment interest',
+PRINCIPAL decimal(10,2) DEFAULT NULL COMMENT 'repayment principal',
+AMOUNT decimal(10,2) DEFAULT NULL COMMENT 'total amount of repayment',
+SHOULD_REPAYMENT_DATE datetime DEFAULT NULL COMMENT 'expected repayment date',
+REPAYMENT_STATUS varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'repayment status 0: pending, 1: completed, 2: partially repaid',
+CREATE_DATE datetime DEFAULT NULL COMMENT 'plan creation time',
+COMMISSION decimal(10,2) DEFAULT NULL COMMENT 'annualized interest rate (platform commission, interest differential)',
+PRIMARY KEY (ID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='borrower repayment plan';
 
 Use p2p_depository_agent;
 
-CREATE TABLE `depository_record` (
-  `ID` bigint(20) NOT NULL COMMENT '主键',
-  `REQUEST_NO` varchar(50) DEFAULT NULL COMMENT '请求流水号',
-  `REQUEST_TYPE` varchar(50) DEFAULT NULL COMMENT '请求类型:1.用户信息(新增、编辑)、2.绑卡信息',
-  `OBJECT_TYPE` varchar(50) DEFAULT NULL COMMENT '业务实体类型',
-  `OBJECT_ID` bigint(20) DEFAULT NULL COMMENT '关联业务实体标识',
-  `CREATE_DATE` datetime DEFAULT NULL COMMENT '请求时间',
-  `IS_SYN` tinyint(1) DEFAULT NULL COMMENT '是否是同步调用',
-  `REQUEST_STATUS` tinyint(1) DEFAULT NULL COMMENT '数据同步状态',
-  `CONFIRM_DATE` datetime DEFAULT NULL COMMENT '消息确认时间',
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='存管交易记录表';
+CREATE TABLE depository_record (
+ID bigint(20) NOT NULL COMMENT 'primary key',
+REQUEST_NO varchar(50) DEFAULT NULL COMMENT 'request serial number',
+REQUEST_TYPE varchar(50) DEFAULT NULL COMMENT 'request type: 1. user information (add, edit), 2. card binding information',
+OBJECT_TYPE varchar(50) DEFAULT NULL COMMENT 'business entity type',
+OBJECT_ID bigint(20) DEFAULT NULL COMMENT 'related business entity identifier',
+CREATE_DATE datetime DEFAULT NULL COMMENT 'request time',
+IS_SYN tinyint(1) DEFAULT NULL COMMENT 'whether it is a synchronous call',
+REQUEST_STATUS tinyint(1) DEFAULT NULL COMMENT 'data synchronization status',
+CONFIRM_DATE datetime DEFAULT NULL COMMENT 'message confirmation time',
+PRIMARY KEY (ID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='depository transaction record table';
 
 
 Use p2p_reconciliation;
@@ -523,16 +516,17 @@ Use p2p_file;
 -- ----------------------------
 DROP TABLE IF EXISTS `fileobject`;
 CREATE TABLE `fileobject` (
-  `ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `fileName` varchar(50) DEFAULT NULL COMMENT '原文件名',
-  `origin` varchar(20) NOT NULL COMMENT '存储源',
-  `resourceKey` varchar(100) NOT NULL COMMENT '文件key',
-  `flag` varchar(10) NOT NULL COMMENT '正反面',
-  `downloadUrl` varchar(200) DEFAULT NULL COMMENT '文件下载地址',
-  `isProtect` tinyint(1) NOT NULL COMMENT '公有还是私有',
+  `ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'primary key',
+  `fileName` varchar(50) DEFAULT NULL COMMENT 'original filename',
+  `origin` varchar(20) NOT NULL COMMENT 'storage source',
+  `resourceKey` varchar(100) NOT NULL COMMENT 'file key',
+  `flag` varchar(10) NOT NULL COMMENT 'front or back',
+  `downloadUrl` varchar(200) DEFAULT NULL COMMENT 'file download URL',
+  `isProtect` tinyint(1) NOT NULL COMMENT 'public or private',
   `uploaddate` datetime NOT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8;
+
 
 
 
@@ -594,14 +588,13 @@ UNLOCK TABLES;
 LOCK TABLES `role` WRITE;
 /*!40000 ALTER TABLE `role` DISABLE KEYS */;
 
-INSERT INTO `role` (`ID`, `NAME`, `CODE`)
+INSERT INTO role (ID, NAME, CODE)
 VALUES
-  (1,'b端用户','admin'),
-  (2,'c端用户','user');
+(1,'B-end user','admin'),
+(2,'C-end user','user');
 
-/*!40000 ALTER TABLE `role` ENABLE KEYS */;
+/*!40000 ALTER TABLE role ENABLE KEYS */;
 UNLOCK TABLES;
-
 
 # Dump of table account_role
 # ------------------------------------------------------------
