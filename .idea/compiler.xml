@@ -7,11 +7,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Loansp2p-discover-server" />
         <module name="Loansp2p-gateway-server" />
-        <module name="Loansp2p-api" />
         <module name="Loansp2p-consumer-service" />
         <module name="Loansp2p-common" />
+        <module name="Loansp2p-discover-server" />
+        <module name="Loansp2p-api" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -25,6 +25,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="Loansp2p" options="" />
       <module name="Loansp2p-api" options="-parameters" />
       <module name="Loansp2p-common" options="-parameters" />
       <module name="Loansp2p-consumer-service" options="-parameters" />

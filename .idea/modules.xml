@@ -2,13 +2,13 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/P2P-Financial-Platform-for-Investment-and-Personal-Loans.iml" filepath="$PROJECT_DIR$/.idea/P2P-Financial-Platform-for-Investment-and-Personal-Loans.iml" />
       <module fileurl="file://$PROJECT_DIR$/Loansp2p/Loansp2p.iml" filepath="$PROJECT_DIR$/Loansp2p/Loansp2p.iml" />
       <module fileurl="file://$PROJECT_DIR$/Loansp2p/Loansp2p-api/Loansp2p-api.iml" filepath="$PROJECT_DIR$/Loansp2p/Loansp2p-api/Loansp2p-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/Loansp2p/Loansp2p-common/Loansp2p-common.iml" filepath="$PROJECT_DIR$/Loansp2p/Loansp2p-common/Loansp2p-common.iml" />
       <module fileurl="file://$PROJECT_DIR$/Loansp2p/Loansp2p-consumer-service/Loansp2p-consumer-service.iml" filepath="$PROJECT_DIR$/Loansp2p/Loansp2p-consumer-service/Loansp2p-consumer-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/Loansp2p/Loansp2p-discover-server/Loansp2p-discover-server.iml" filepath="$PROJECT_DIR$/Loansp2p/Loansp2p-discover-server/Loansp2p-discover-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/Loansp2p/Loansp2p-gateway-server/Loansp2p-gateway-server.iml" filepath="$PROJECT_DIR$/Loansp2p/Loansp2p-gateway-server/Loansp2p-gateway-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/P2P-Financial-Platform-for-Investment-and-Personal-Loans.iml" filepath="$PROJECT_DIR$/.idea/P2P-Financial-Platform-for-Investment-and-Personal-Loans.iml" />
     </modules>
   </component>
 </project>
