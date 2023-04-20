@@ -1,0 +1,14 @@
+cn\itcast\Loansp2p\api\account\model\AccountRegisterDTO.class
+cn\itcast\Loansp2p\api\AccountAPI.class
+cn\itcast\Loansp2p\api\depository\model\DepositoryConsumerResponse.class
+cn\itcast\Loansp2p\api\account\model\AccountDTO.class
+cn\itcast\Loansp2p\api\account\model\AccountLoginDTO.class
+cn\itcast\Loansp2p\api\depository\DepositoryAgentApi.class
+cn\itcast\Loansp2p\api\depository\GatewayRequest.class
+cn\itcast\Loansp2p\api\account\model\LoginUser.class
+cn\itcast\Loansp2p\api\consumer\ConsumerAPI.class
+cn\itcast\Loansp2p\api\consumer\model\ConsumerRegisterDTO.class
+cn\itcast\Loansp2p\api\depository\model\DepositoryBaseResponse.class
+cn\itcast\Loansp2p\api\consumer\model\ConsumerRequest.class
+cn\itcast\Loansp2p\api\consumer\model\BankCardDTO.class
+cn\itcast\Loansp2p\api\consumer\model\ConsumerDTO.class

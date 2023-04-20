@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Loansp2p.iml" filepath="$PROJECT_DIR$/Loansp2p.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Loansp2p-account-service/Loansp2p-account-service.iml" filepath="$PROJECT_DIR$/Loansp2p-account-service/Loansp2p-account-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Loansp2p-api/Loansp2p-api.iml" filepath="$PROJECT_DIR$/Loansp2p-api/Loansp2p-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Loansp2p-common/Loansp2p-common.iml" filepath="$PROJECT_DIR$/Loansp2p-common/Loansp2p-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Loansp2p-consumer-service/Loansp2p-consumer-service.iml" filepath="$PROJECT_DIR$/Loansp2p-consumer-service/Loansp2p-consumer-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Loansp2p-content-search-service/Loansp2p-content-search-service.iml" filepath="$PROJECT_DIR$/Loansp2p-content-search-service/Loansp2p-content-search-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Loansp2p-depository-agent-service/Loansp2p-depository-agent-service.iml" filepath="$PROJECT_DIR$/Loansp2p-depository-agent-service/Loansp2p-depository-agent-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Loansp2p-discover-server/Loansp2p-discover-server.iml" filepath="$PROJECT_DIR$/Loansp2p-discover-server/Loansp2p-discover-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Loansp2p-gateway-server/Loansp2p-gateway-server.iml" filepath="$PROJECT_DIR$/Loansp2p-gateway-server/Loansp2p-gateway-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Loansp2p-repayment-service/Loansp2p-repayment-service.iml" filepath="$PROJECT_DIR$/Loansp2p-repayment-service/Loansp2p-repayment-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Loansp2p-transaction-service/Loansp2p-transaction-service.iml" filepath="$PROJECT_DIR$/Loansp2p-transaction-service/Loansp2p-transaction-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Loansp2p-uaa-service/Loansp2p-uaa-service.iml" filepath="$PROJECT_DIR$/Loansp2p-uaa-service/Loansp2p-uaa-service.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,7 @@
+cn\itcast\Loansp2p\search\common\constant\ContentSearchErrorCode.class
+cn\itcast\Loansp2p\search\ContentSearchService.class
+cn\itcast\Loansp2p\search\config\ElasticsearchConfig.class
+cn\itcast\Loansp2p\search\common\intercept\GlobalExceptionHandler.class
+cn\itcast\Loansp2p\search\service\ProjectIndexService.class
+cn\itcast\Loansp2p\search\model\ProjectQueryParamsDTO.class
+cn\itcast\Loansp2p\search\config\SwaggerConfiguration.class
