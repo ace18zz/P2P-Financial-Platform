@@ -25,7 +25,7 @@ public class DepositoryRecord implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 主键
+     * main key
      */
     @TableId("ID")
     private Long id;
